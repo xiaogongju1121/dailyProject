@@ -8,6 +8,14 @@
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+		(function (doc,$) {
+			$.ready(function () {
+				$.openWindow({
+					url:"pages/main.html"
+				})
+			})
+		}(document,mui))
+		
     </script>
 </head>
 <body>

@@ -5,13 +5,91 @@
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="css/mui.css" rel="stylesheet" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/bass.css" />
+		<style type="text/css">
+			.items {
+				display: inline-block;
+				width: 32%;
+				text-align: center;
+				margin: 20px 0;
+			}
+
+			.items span {
+				display: block;
+			}
+
+			.items span.iconfont {
+				font-size: 50px;
+				color: rgba(0, 0, 0, 0.6);
+			}
+
+			.items .icon_bg {
+				width: 80px;
+				height: 80px;
+				margin: 0 auto;
+				background-image: radial-gradient(#94bbe2, #a6cfe0);
+				padding-top: 30px;
+				border-radius: 20px;
+				margin-bottom: 15px;
+			}
+
+			.mui-content {
+				background-image: linear-gradient(to bottom left, #f9f9f9, #efefef);
+			}
+		</style>
 	</head>
 
 	<body>
-		<script src="js/mui.js"></script>
+		<header class="mui-bar">
+			<h1 class="mui-title"></h1>
+		</header>
+		<div class="mui-content">
+			<div id="con">
+				<div class="items">
+					<div class="icon_bg">
+						<span class="iconfont icon-yi"></span>
+					</div>
+					<span>周易</span>
+				</div>
+				<div class="items" data-url="wu_ba.html">
+					<div class="icon_bg">
+						<span class="iconfont icon-ba"></span>
+					</div>
+					<span>五行八卦</span>
+				</div>
+				<div class="items">
+					<div class="icon_bg">
+						<span class="iconfont icon-gan"></span>
+					</div>
+					<span>天干地支</span>
+				</div>
+				<div class="items">
+					<div class="icon_bg">
+						<span class="iconfont icon-mei"></span>
+					</div>
+					<span>梅花易数</span>
+				</div>
+				<div class="items">
+					<div class="icon_bg">
+						<span class="iconfont icon-jia"></span>
+					</div>
+					<span>奇门遁甲</span>
+				</div>
+			</div>
+
+		</div>
+		<script src="../js/mui.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			(function ($,doc) {
+				$("#con").on("tap",".items",function () {
+					var url = this.getAttribute("data-url");
+					$.openWindow({
+						url:url
+					})
+				})
+			}(mui,document))
 		</script>
 	</body>
 
