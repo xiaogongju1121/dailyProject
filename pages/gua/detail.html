@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/bass.css"/>
+		<title></title>
+		<style type="text/css">
+			#guaName,#biangua,#hugua{
+				margin: 0 15px;
+				font-size: 18px;
+				vertical-align: baseline;
+				font-weight: bolder;
+			}
+			p label{
+				margin-right: 15px;
+				color: #666;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">一键起卦</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<h2 class="title"><span id="selfName"></span><span id="self_dis" class="sub_title"></span></h2>
+				<p> <label>当前时间为:</label> <span id="nowTime"></span> </p>
+				<p> <label>卦名:</label><span id="guaName" ></span> 上<span id="up"></span>下<span id="down"></span> </p>
+				<p> <label>动爻:</label> 第<span id="dongyao"></span>爻</p>
+				<p> <label>变卦:</label><span id="biangua" style="margin-right: 25px;"></span></p>
+				<p> <label>互卦:</label><span id="hugua" style="margin-right: 25px;"></span></p>
+			</div>
+			<div class="mui-card gua_items">
+				<div class="gua_pic" id="selfPic">
+				</div>
+			</div>
+		</div>
+		<script src="../../js/64gua.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/nongli.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			(function ($,doc) {
+				$.ready(function () {
+					var result = getGua();
+					console.log(result);
+					doc.querySelector("#nowTime").innerHTML = result.str;
+					doc.querySelector("#dongyao").innerHTML = result.dongyao;
+					var code = result.gua; //自身卦id
+					var upCode = code.substring(0,3); //自身挂上挂
+					var dowCode = code.substring(3,6); //自身挂下挂
+					
+					var self = getGuaInfo(code); //自身挂
+					var bian = getGuaInfo(result.biangua); //变卦
+					var hu = getGuaInfo(result.hugua); //互卦
+					
+					doc.querySelector("#selfName").innerHTML = self.name;
+					doc.querySelector("#self_dis").innerHTML = self.dis;
+					doc.querySelector("#guaName").innerHTML = self.name;
+					doc.querySelector("#biangua").innerHTML = bian.name;
+					doc.querySelector("#hugua").innerHTML = hu.name;
+					drawPic("selfPic",code);
+					
+					
+					for(var i = 0;i<bagua.length;i++){
+						if(bagua[i].code == upCode){
+							doc.querySelector("#up").innerHTML = bagua[i].name;
+						}
+						if(bagua[i].code == dowCode){
+							doc.querySelector("#down").innerHTML = bagua[i].name;
+						}
+					}
+					
+					
+					
+					
+				})
+				
+				function drawPic(id,str){
+					var arr = str.split("");
+					var html = "";
+					for(var i = 0;i<arr.length ;i++){
+						var type = "yin";
+						var col = "";
+						if(arr[i] == 1){
+							type = 'yang'
+						}
+						if((i % 2 == 0 && arr[i] == 1) || (i % 2 == 1 && arr[i] == 0)){
+							col = "budang"
+						}
+						html += '<div class="'+type+' '+col+'"></div>'
+					}
+					doc.querySelector("#"+id).innerHTML = html;
+				}
+				
+			}(mui,document))
+		</script>
+	</body>
+</html>

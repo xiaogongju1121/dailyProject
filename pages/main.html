@@ -77,7 +77,13 @@
 					<span>奇门遁甲</span>
 				</div>
 			</div>
-
+			<div class="mui-card">
+				<h2 class="title">一键起卦</h2>
+				<p>利用梅花易数年月日起卦法，一键生成。</p>
+				<div class="mui-text-right">
+					<button type="button" id="btnSheng" class="mui-btn mui-btn-primary mui-btn-block">点击生成</button>
+				</div>
+			</div>
 		</div>
 		<script src="../js/mui.js"></script>
 		<script type="text/javascript">
@@ -87,6 +93,11 @@
 					var url = this.getAttribute("data-url");
 					$.openWindow({
 						url:url
+					})
+				})
+				doc.querySelector("#btnSheng").addEventListener("tap",function () {
+					$.openWindow({
+						url:'gua/detail.html'
 					})
 				})
 				$.back = function () {

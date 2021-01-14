@@ -525,7 +525,8 @@ var calendar = {
 			y: (y - 4) % 12,
 			m:month,
 			d:day,
-			t:tt
+			t:tt,
+			str:gzY+"年"+gzM+"月"+gzD+"日"+calendar.Zhi[tt - 1]+"时"
 		}
 		
 		/* return {
