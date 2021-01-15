@@ -60,9 +60,9 @@ function getNum(n, c) { //n是输入的数，c是被除数
 	var r = n % c;
 	if (r >= c) {
 		getNum(r, c);
-	} else if(r == 0){
+	} else if (r == 0) {
 		return c
-	}else{
+	} else {
 		return r
 	}
 
@@ -75,4 +75,21 @@ function getGuaInfo(code) {
 		}
 	})
 	return info[0]
+}
+
+function drawPic(id, str) {
+	var arr = str.split("");
+	var html = "";
+	for (var i = 0; i < arr.length; i++) {
+		var type = "yin";
+		var col = "";
+		if (arr[i] == 1) {
+			type = 'yang'
+		}
+		if ((i % 2 == 0 && arr[i] == 1) || (i % 2 == 1 && arr[i] == 0)) {
+			col = "budang"
+		}
+		html += '<div class="' + type + ' ' + col + '"></div>'
+	}
+	document.querySelector("#" + id).innerHTML = html;
 }

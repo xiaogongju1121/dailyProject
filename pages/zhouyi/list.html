@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link href="../../css/bass.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-bar {
+				box-shadow: none;
+			}
+
+			.mui-bar-nav~.mui-content {
+				padding-top: 42px;
+			}
+
+			#list {
+				margin-top: 80px;
+				text-align: center;
+				flex-wrap: wrap;
+			}
+
+			#list .itme.gua_items {
+				width: 29%;
+				text-align: center;
+				margin: 10px 2%;
+				background: #fff;
+				border-radius: 10px;
+				padding: 15px;
+			}
+			#list .itme.gua_items .gua_pic {
+				float: none;
+				width: 80%;
+				margin: 0 auto 13px;
+			}
+
+			.gua_items .gua_pic .yin,
+			.gua_items .gua_pic .yang {
+				height: 12px;
+			}
+
+			#list .itme.gua_items .gua_pic+div {
+				color: #333;
+				font-size: 18px;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">周易</h1>
+		</header>
+		<div class="mui-content">
+			<div class="search_div">
+				<div class="search_content">
+					<input type="text" placeholder="请输入搜索内容" id="searchInput" />
+					<button type="button" class="mui-btn" id="btnSearch">搜索</button>
+				</div>
+			</div>
+			<div id="list" class="flex">
+				<!-- <div class="itme gua_items">
+					<div class="gua_pic">
+						<div class="yin"></div>
+						<div class="yin"></div>
+						<div class="yin"></div>
+						<div class="yin"></div>
+						<div class="yin"></div>
+						<div class="yin"></div>
+					</div>
+					<div>水雷屯</div>
+				</div> -->
+			</div>
+		</div>
+		<script src="../../js/64gua.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			(function($, doc) {
+				$.ready(function() {
+					getList(guaData);
+					doc.querySelector("#btnSearch").addEventListener("tap", function() {
+						var content = doc.querySelector("#searchInput").value;
+						var data = guaData.filter(function(item) {
+							if (item.dis.indexOf(content) != -1) {
+								return true
+							}
+						})
+						getList(data);
+					});
+					$("#list").on("tap",".gua_items",function () {
+						var code = this.getAttribute("data-code");
+						$.openWindow({
+							url:"detail.html",
+							extras:{
+								code:code
+							}
+						})
+					})
+				});
+
+				function getList(data) {
+					var html = "";
+					for (var i = 0; i < data.length; i++) {
+						html += '<div class="itme gua_items" data-code="'+data[i].code+'">' +
+							'<div class="gua_pic">';
+						html += drawPic(data[i].code);
+						html += '</div><div>' + data[i].dis + '</div></div>'
+					}
+					doc.querySelector("#list").innerHTML = html;
+				}
+
+				function drawPic(str) {
+					var arr = str.split("");
+					var html = "";
+					for (var i = 0; i < arr.length; i++) {
+						var type = "yin";
+						var col = "";
+						if (arr[i] == 1) {
+							type = 'yang'
+						}
+						if ((i % 2 == 0 && arr[i] == 1) || (i % 2 == 1 && arr[i] == 0)) {
+							col = "budang"
+						}
+						html += '<div class="' + type + ' ' + col + '"></div>'
+					}
+					return html
+				}
+			}(mui, document))
+		</script>
+	</body>
+
+</html>
