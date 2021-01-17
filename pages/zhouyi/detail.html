@@ -16,15 +16,18 @@
 			<h1 class="mui-title">详情</h1>
 		</header>
 		<div class="mui-content">
-			<div class="gua_items mui-text-center">
+			<div class="gua_items mui-text-center" style="position: fixed;width: 100%;z-index: 99;background: #efeff4;padding-bottom: 15px;">
 				<div id="name" class="info_name"></div>
 				<div class="gua_pic" id="show">
 				</div>
 				<div class="tips">红色表示当为的爻，蓝色表示不当位的爻</div>
 			</div>
-			<div class="mui-card">
-				<h2 class="title"><span class=" info_dis"></span></h2>
-				<p> <label>卦名:</label> <span class=" info_name"></span></p>
+			<div class="mui-card" style="margin-top: 195px;">
+				<h2 class="title"><span class="info_dis" id="main"></span></h2>
+				<p id="aaa" class="p_exp"></p>
+				<div id="ccc" >
+					
+				</div>
 				<p></p>
 			</div>
 		</div>
@@ -34,10 +37,9 @@
 		<script type="text/javascript">
 			mui.init()
 			(function ($,doc) {
-				$.ready(function () {
-					/* var self = plus.webview.currentWebview();
-					var code = self.code; */
-					var code = '101001'
+				$.plusReady(function () {
+					var self = plus.webview.currentWebview();
+					var code = self.code;
 					getInfo(code);
 					drawPic('show',code)
 				})
@@ -51,6 +53,15 @@
 							}
 						}
 					}
+					var content = data.content;
+					var html = "";
+					for(var i = 0;i<content.length;i++){
+						html += '<p>'+content[i]+'</p><p class="p_exp">'+data.exp[i]+'</p>'
+					}
+					html+= '<p>'+data.xiang+'</p>';
+					
+					doc.querySelector("#ccc").innerHTML = html;
+					doc.querySelector("#aaa").innerHTML = data.main
 					
 				}
 				function getData(code){
