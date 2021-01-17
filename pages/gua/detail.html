@@ -17,6 +17,30 @@
 				margin-right: 15px;
 				color: #666;
 			}
+			#list .itme.gua_items {
+				width: 29%;
+				text-align: center;
+				margin: 10px 2%;
+				background: #fff;
+				border-radius: 10px;
+				padding: 15px;
+			}
+			#list .itme.gua_items .gua_pic {
+				float: none;
+				width: 80%;
+				margin: 0 auto 13px;
+			}
+			
+			.gua_items .gua_pic .yin,
+			.gua_items .gua_pic .yang {
+				height: 12px;
+			}
+			
+			#list .itme.gua_items .gua_pic+div {
+				color: #333;
+				font-size: 18px;
+				font-weight: 600;
+			}
 		</style>
 	</head>
 	<body>
@@ -33,10 +57,27 @@
 				<p> <label>变卦:</label><span id="biangua" style="margin-right: 25px;"></span></p>
 				<p> <label>互卦:</label><span id="hugua" style="margin-right: 25px;"></span></p>
 			</div>
-			<div class="mui-card gua_items">
-				<div class="gua_pic" id="selfPic">
+			<div id="list" class="flex">
+				<div class="itme gua_items" id="g_1">
+					<div>本卦</div>
+					<div class="gua_pic" id="selfGua">
+					</div>
+					<div id="name_1"></div>
+				</div>
+				<div class="itme gua_items"id="g_2">
+					<div>变卦</div>
+					<div class="gua_pic" id="changeGua">
+					</div>
+					<div id="name_2"></div>
+				</div>
+				<div class="itme gua_items" id="g_3">
+					<div>互卦</div>
+					<div class="gua_pic" id="eachGua">
+					</div>
+					<div id="name_3"></div>
 				</div>
 			</div>
+			
 		</div>
 		<script src="../../js/64gua.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/nongli.js" type="text/javascript" charset="utf-8"></script>
@@ -63,7 +104,14 @@
 					doc.querySelector("#guaName").innerHTML = self.name;
 					doc.querySelector("#biangua").innerHTML = bian.name;
 					doc.querySelector("#hugua").innerHTML = hu.name;
-					drawPic("selfPic",code);
+					
+					drawPic("selfGua",code);
+					drawPic("changeGua",bian.code);
+					drawPic("eachGua",hu.code);
+					
+					doc.querySelector("#name_1").innerHTML = self.dis;
+					doc.querySelector("#name_2").innerHTML = bian.dis;
+					doc.querySelector("#name_3").innerHTML = hu.dis;
 					
 					
 					for(var i = 0;i<bagua.length;i++){
@@ -75,7 +123,31 @@
 						}
 					}
 					
+					doc.querySelector("#g_1").addEventListener("tap",function () {
+						$.openWindow({
+							url:"../zhouyi/detail.html",
+							extras:{
+								code:code
+							}
+						})
+					})
+					doc.querySelector("#g_2").addEventListener("tap",function () {
+						$.openWindow({
+							url:"../zhouyi/detail.html",
+							extras:{
+								code:result.biangua
+							}
+						})
+					})
 					
+					doc.querySelector("#g_3").addEventListener("tap",function () {
+						$.openWindow({
+							url:"../zhouyi/detail.html",
+							extras:{
+								code:result.hugua
+							}
+						})
+					})
 					
 					
 				})

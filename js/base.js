@@ -31,6 +31,7 @@ function getGua() {
 	var shanggua = getNum(num1, 8);
 	var xiagua = getNum(num2, 8);
 	var dongyao = getNum(num2, 6);
+
 	var code = "";
 	bagua.filter(function(item) {
 		if (item.num == shanggua) {
@@ -45,7 +46,9 @@ function getGua() {
 
 	var temp = code.split("");
 	var hugua = [temp[1], temp[2], temp[3], temp[2], temp[3], temp[4]].join("");
-	temp[dongyao - 1] == 0 ? temp[dongyao - 1] = 1 : temp[dongyao - 1] = 0;
+
+
+	temp[6 - dongyao] == 0 ? temp[6 - dongyao] = 1 : temp[6 - dongyao] = 0;
 
 	return {
 		gua: code,
