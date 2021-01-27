@@ -84,6 +84,13 @@
 					<button type="button" id="btnSheng" class="mui-btn mui-btn-primary mui-btn-block">点击生成</button>
 				</div>
 			</div>
+			<div class="mui-card">
+				<h2 class="title">一键起卦</h2>
+				<p>利用周易的筮法起挂</p>
+				<div class="mui-text-right">
+					<button type="button" id="btnSheng2" class="mui-btn mui-btn-primary mui-btn-block">点击生成</button>
+				</div>
+			</div>
 		</div>
 		<script src="../js/mui.js"></script>
 		<script type="text/javascript">
@@ -98,6 +105,11 @@
 				doc.querySelector("#btnSheng").addEventListener("tap",function () {
 					$.openWindow({
 						url:'gua/detail.html'
+					})
+				})
+				doc.querySelector("#btnSheng2").addEventListener("tap",function () {
+					$.openWindow({
+						url:'gua/detail2.html'
 					})
 				})
 				$.back = function () {

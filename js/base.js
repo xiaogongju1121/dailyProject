@@ -96,3 +96,45 @@ function drawPic(id, str) {
 	}
 	document.querySelector("#" + id).innerHTML = html;
 }
+
+function getZyGua() { //用周易的筮法算卦
+	var arr = ["", "", "", "", "", ""]; //定义空数组，初始挂的code
+	var dongArr = [];
+	for (var i = 5; i >= 0; i--) {
+		getZyYao(i);
+	}
+	return {
+		code: arr.join(""),
+		dong: dongArr
+	}
+
+	function getZyYao(i) { //获取爻
+		var n = 49;
+		var temp = getZyYaoStep(getZyYaoStep(getZyYaoStep(n))) - 1;
+		var c = temp / 4;
+		if (c == 6 || c == 8) {
+			arr[i] = 0;
+			if (c == 6) {
+				dongArr.push(i);
+			}
+		} else if (c == 7 || c == 9) {
+			arr[i] = 1;
+			if (c == 9) {
+				dongArr.push(i);
+			}
+		}
+
+	}
+
+	function getZyYaoStep(n) { //获取爻的具体方法
+		//平均分成两份
+		var s = Math.random();
+		var n1 = parseInt(n * s) > 0 ? parseInt(n * s) : 1;
+		var n2 = n - n1;
+		n1 >= n2 ? n1 -= 1 : n2 -= 1;
+		var r1 = n1 % 4 == 0 ? 4 : n1 % 4;
+		var r2 = n2 % 4 == 0 ? 4 : n2 % 4;
+		n = n - r1 - r2;
+		return n
+	}
+}
